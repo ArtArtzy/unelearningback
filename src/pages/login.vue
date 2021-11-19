@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -36,8 +37,19 @@ export default {
     };
   },
   methods: {
-    loginBtn() {
-      this.$router.push("/questionmain");
+    async loginBtn() {
+      let temp = {
+        username: this.input.username,
+        password: this.input.password,
+      };
+      let url = this.serverpath + "checklogin.php";
+      let res = await axios.post(url, JSON.stringify(temp));
+      console.log(res.data);
+      if (res.data != false) {
+        this.$router.push("/questionmain");
+      } else {
+        this.notifyRed("username / password incorrect");
+      }
     },
   },
 };

@@ -34,4 +34,22 @@ Vue.mixin({
       serverpath: "http://localhost/unsdgs/",
     };
   },
+  methods: {
+    notifyGreen(message) {
+      this.$q.notify({
+        message: message,
+        color: "green",
+        position: "top",
+        timeout: "2500",
+      });
+    },
+    notifyRed(message) {
+      this.$q.notify({
+        message: message,
+        color: "red",
+        position: "top",
+        timeout: "2500",
+      });
+    },
+  },
 });
