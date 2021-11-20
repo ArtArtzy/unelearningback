@@ -11,38 +11,66 @@
       <div class="vl"></div>
       <div class="t1">Trade and the sustainable development goals (SDGs)</div>
     </div>
-    <div class="bg02 row">
-      <div class="menu01 cursor-pointer" v-if="menu != 1" @click="gotoExam()">
-        Exam
+    <div class="bg02 row justify-between">
+      <div class="row">
+        <div class="menu01 cursor-pointer" v-if="menu != 1" @click="gotoExam()">
+          Exam
+        </div>
+        <div class="menu02" v-if="menu == 1">
+          Exam
+          <div class="blueline"></div>
+        </div>
+        <div class="menu01 cursor-pointer" @click="gotoUser()" v-if="menu != 2">
+          User
+        </div>
+        <div class="menu02" v-if="menu == 2">
+          User
+          <div class="blueline"></div>
+        </div>
+        <div
+          class="menu01 cursor-pointer"
+          @click="gotoAdmin()"
+          v-if="menu != 3 && adminShow"
+        >
+          Admin
+        </div>
+        <div class="menu02" v-if="menu == 3 && adminShow">
+          Admin
+          <div class="blueline"></div>
+        </div>
       </div>
-      <div class="menu02" v-if="menu == 1">
-        Exam
-        <div class="blueline"></div>
-      </div>
-      <div class="menu01 cursor-pointer" @click="gotoUser()" v-if="menu != 2">
-        User
-      </div>
-      <div class="menu02" v-if="menu == 2">
-        User
-        <div class="blueline"></div>
-      </div>
-      <div class="menu01 cursor-pointer" @click="gotoAdmin()" v-if="menu != 3">
-        Admin
-      </div>
-      <div class="menu02" v-if="menu == 3">
-        Admin
-        <div class="blueline"></div>
+
+      <div class="row">
+        <div class="menu01 cursor-pointer" @click="profileBtn()">
+          <u>{{ username }}</u>
+        </div>
+        <div>
+          <q-icon
+            name="fas fa-sign-out-alt"
+            color="white"
+            size="21px"
+            class="q-pt-sm q-pr-md cursor-pointer"
+            @click="logoutBtn()"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: {
     menu: {
       type: Number,
     },
+  },
+  data() {
+    return {
+      adminShow: false,
+      username: this.$q.localStorage.getItem("username"),
+    };
   },
   methods: {
     gotoExam() {
@@ -54,6 +82,38 @@ export default {
     gotoAdmin() {
       this.$router.push("admin");
     },
+    logoutBtn() {
+      this.$q
+        .dialog({
+          title: "Confirm",
+          message: "Would you like to log out?",
+          cancel: true,
+          persistent: true,
+        })
+        .onOk(async () => {
+          this.$q.localStorage.clear();
+          this.$router.push("/");
+        });
+    },
+    profileBtn() {
+      this.$router.push("profile");
+    },
+    async loadMenu() {
+      let value = this.$q.localStorage.getItem("token");
+      let temp = {
+        token: value,
+      };
+      let url = this.serverpath + "loadmenu.php";
+      let res = await axios.post(url, JSON.stringify(temp));
+      if (res.data == "logout") {
+        this.$router.push("/");
+      } else if (res.data == "adminmode") {
+        this.adminShow = true;
+      }
+    },
+  },
+  mounted() {
+    this.loadMenu();
   },
 };
 </script>

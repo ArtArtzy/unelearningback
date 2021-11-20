@@ -109,6 +109,8 @@ export default {
     },
   },
   mounted() {
+    this.checkToken();
+
     this.loadQuestion();
   },
 };

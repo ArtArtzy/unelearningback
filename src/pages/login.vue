@@ -44,8 +44,9 @@ export default {
       };
       let url = this.serverpath + "checklogin.php";
       let res = await axios.post(url, JSON.stringify(temp));
-      console.log(res.data);
       if (res.data != false) {
+        this.$q.localStorage.set("token", res.data);
+        this.$q.localStorage.set("username", this.input.username);
         this.$router.push("/questionmain");
       } else {
         this.notifyRed("username / password incorrect");

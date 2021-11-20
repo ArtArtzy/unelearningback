@@ -28,6 +28,7 @@ export default function (/* { store, ssrContext } */) {
 
   return Router;
 }
+import axios from "axios";
 Vue.mixin({
   data() {
     return {
@@ -50,6 +51,28 @@ Vue.mixin({
         position: "top",
         timeout: "2500",
       });
+    },
+    async checkToken() {
+      let value = this.$q.localStorage.getItem("token");
+      let temp = {
+        token: value,
+      };
+      let url = this.serverpath + "checktoken.php";
+      let res = await axios.post(url, JSON.stringify(temp));
+      if (res.data == "logout") {
+        this.$router.push("/");
+      }
+    },
+    async checkAdmin() {
+      let value = this.$q.localStorage.getItem("token");
+      let temp = {
+        token: value,
+      };
+      let url = this.serverpath + "loadmenu.php";
+      let res2 = await axios.post(url, JSON.stringify(temp));
+      if (res2.data != "adminmode") {
+        this.$router.push("/");
+      }
     },
   },
 });

@@ -46,7 +46,7 @@ const routes = [
     name: "adminadd",
   },
   {
-    path: "/adminedit",
+    path: "/adminedit/:id",
     component: () => import("pages/adminedit.vue"),
     name: "adminedit",
   },
