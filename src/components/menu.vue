@@ -41,8 +41,16 @@
       </div>
 
       <div class="row">
-        <div class="menu01 cursor-pointer" @click="profileBtn()">
+        <div
+          class="menu01 cursor-pointer"
+          v-if="menu != 4"
+          @click="profileBtn()"
+        >
           <u>{{ username }}</u>
+        </div>
+        <div class="menu02" v-if="menu == 4">
+          {{ username }}
+          <div class="blueline"></div>
         </div>
         <div>
           <q-icon

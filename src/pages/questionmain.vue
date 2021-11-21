@@ -14,33 +14,51 @@
       </div>
     </div>
     <div class="q-pa-md">
-      <q-table :data="data" :columns="columns">
+      <q-table :data="data" :columns="columns" :pagination.sync="pagination">
         <template v-slot:body="props">
           <q-tr :props="props">
-            <q-td align="center">{{ props.row.no }}</q-td>
-            <q-td align="center">{{ props.row.orderid }}</q-td>
+            <q-td align="center"
+              ><span class="font16">{{ props.row.no }}</span></q-td
+            >
+            <q-td align="center"
+              ><span class="font16">{{ props.row.orderid }}</span></q-td
+            >
             <q-td align="left"
-              ><div>{{ props.row.question }}</div>
-              <div :class="[props.row.correctAnswer == 1 ? 'text-green' : '']">
+              ><div class="font16">{{ props.row.question }}</div>
+              <div
+                :class="[props.row.correctAnswer == 1 ? 'text-green' : '']"
+                class="font16"
+              >
                 a. {{ props.row.answer1 }}
               </div>
-              <div :class="[props.row.correctAnswer == 2 ? 'text-green' : '']">
+              <div
+                :class="[props.row.correctAnswer == 2 ? 'text-green' : '']"
+                class="font16"
+              >
                 b. {{ props.row.answer2 }}
               </div>
-              <div :class="[props.row.correctAnswer == 3 ? 'text-green' : '']">
+              <div
+                :class="[props.row.correctAnswer == 3 ? 'text-green' : '']"
+                class="font16"
+              >
                 c. {{ props.row.answer3 }}
               </div>
-              <div :class="[props.row.correctAnswer == 4 ? 'text-green' : '']">
+              <div
+                :class="[props.row.correctAnswer == 4 ? 'text-green' : '']"
+                class="font16"
+              >
                 d. {{ props.row.answer4 }}
               </div>
             </q-td>
             <q-td align="center"
-              ><span class="cursor-pointer" @click="deleteBtn(props.row.id)"
+              ><span
+                class="cursor-pointer font16"
+                @click="deleteBtn(props.row.id)"
                 ><u>delete</u></span
               ></q-td
             >
             <q-td align="center">
-              <span class="cursor-pointer" @click="editBtn(props.row.id)"
+              <span class="cursor-pointer font16" @click="editBtn(props.row.id)"
                 ><u>edit</u></span
               >
             </q-td>
@@ -60,6 +78,9 @@ export default {
   },
   data() {
     return {
+      pagination: {
+        rowsPerPage: 0,
+      },
       columns: [
         {
           name: "no",
