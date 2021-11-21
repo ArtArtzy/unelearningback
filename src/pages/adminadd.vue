@@ -63,7 +63,6 @@ export default {
           password: this.input.password,
           admin : this.input.admin
         }
-        console.log(data);
         let url = this.serverpath + "addnewadmin.php";
         let res = await axios.post(url, JSON.stringify(data));
         this.notifyGreen("Save completely");
@@ -73,7 +72,7 @@ export default {
   },
   mounted () {
     this.checkToken();
-    // this.checkAdmin();
+    this.checkAdmin();
   },
 };
 </script>

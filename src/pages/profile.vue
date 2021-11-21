@@ -1,5 +1,7 @@
 <template>
-  <div>profile</div>
+  <div>
+    <menu-bar :menu="1"></menu-bar>
+  </div>
 </template>
 
 <script>

@@ -84,6 +84,8 @@ export default {
     }
   },
   mounted () {
+      this.checkToken();
+      this.checkAdmin();
     this.loadData()
    
   },

@@ -97,7 +97,7 @@ export default {
       console.log(id);
     },
     editBtn(id) {
-      console.log(id);
+      this.$router.push("questionedit/" + id);
     },
     addQuestion() {
       this.$router.push("questionnew");
@@ -110,7 +110,6 @@ export default {
   },
   mounted() {
     this.checkToken();
-
     this.loadQuestion();
   },
 };

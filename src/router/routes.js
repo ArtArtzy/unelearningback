@@ -21,7 +21,7 @@ const routes = [
     name: "questionnew",
   },
   {
-    path: "/questionedit",
+    path: "/questionedit/:id",
     component: () => import("pages/questionedit.vue"),
     name: "questionedit",
   },
