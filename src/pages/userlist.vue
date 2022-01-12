@@ -26,6 +26,9 @@
             ><span>{{ props.row.organization }}</span></q-td
           >
           <q-td align="center"
+            ><span>{{ props.row.jobtitle }}</span></q-td
+          >
+          <q-td align="center"
             ><span>{{ props.row.score }}</span></q-td
           >
           <q-td align="center"
@@ -80,6 +83,11 @@ export default {
         {
           name: "organization",
           label: "Organization",
+          align: "center",
+        },
+        {
+          name: "jobtitle",
+          label: "Job title",
           align: "center",
         },
         {
